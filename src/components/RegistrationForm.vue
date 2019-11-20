@@ -47,10 +47,10 @@
 									:rules="[rules.required(registrationData.position, warnings.obligatoryWriteIn), rules.length100(registrationData.position, warnings.lineHasMore100symbols)]"
 									:label="$t('message.registrationForm.position') + ' *'"></v-text-field>
 
-								<v-text-field
+								<!-- <v-text-field
 									v-model="registrationData.phone"
 									:rules="[rules.required(registrationData.phone, warnings.obligatoryWriteIn), rules.phone(registrationData.phone, warnings.rightPhoneNumber)]"
-									:label="$t('message.registrationForm.phone') + ' *'"></v-text-field>
+									:label="$t('message.registrationForm.phone') + ' *'"></v-text-field> -->
 
 								<div v-bind:class="{phoneValid: phoneIsValid, phoneNotValid: !phoneIsValid }">{{$t('message.registrationForm.phone') + ' *'}}</div>
 
