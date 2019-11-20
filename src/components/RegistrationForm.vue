@@ -107,7 +107,6 @@ export default {
 	},
 	created() {
 		this.lang = window.myConfig.lang
-		this.dafaultCountry = this.lang === 'uk' ? 'UA' : this.lang.toUpperCase()
 
 		this.warnings.obligatoryWriteIn = this.$t('message.registrationForm.obligatoryWriteIn')
 		this.warnings.nameMastConsistsLettersOnly = this.$t('message.registrationForm.nameMastConsistsLettersOnly')
@@ -135,7 +134,7 @@ export default {
 	},
 	data: () => ({
 		defaultCountry: 'UA',
-		countriesList: ['EN','FR','UA','RU','BR'],
+		countriesList: ['FR','UA','RU', 'GB'],
 		translations: {
 			countrySelectorLabel: '',
       countrySelectorError: '',
