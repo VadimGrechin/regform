@@ -13,7 +13,7 @@
 			<v-flex md6 xs12>
 				<v-container>
 						<v-flex>
-							<!-- форма регистрации -->
+
 							<v-form v-if="!message"
 										ref=form
 										v-model="valid"
@@ -52,20 +52,19 @@
 									:rules="[rules.required(registrationData.phone, warnings.obligatoryWriteIn), rules.phone(registrationData.phone, warnings.rightPhoneNumber)]"
 									:label="$t('message.registrationForm.phone') + ' *'"></v-text-field>
 
-								<!-- <div v-bind:class="{phoneValid: phoneIsValid, phoneNotValid: !phoneIsValid }">{{$t('message.registrationForm.phone') + ' *'}}</div> -->
-								<!-- Номер телефона -->
-								<!-- <VuePhoneNumberInput 
+								<div v-bind:class="{phoneValid: phoneIsValid, phoneNotValid: !phoneIsValid }">{{$t('message.registrationForm.phone') + ' *'}}</div>
+
+								<VuePhoneNumberInput 
 									v-model="registrationData.phone"
 									size="lg"
 									required
 									color="#FF3907"
 									:default-country-code="defaultCountry"
-									:only-countries="['UA','RU','BL']"
+									:only-countries="countriesList"
 									:error="hasErrorActive"
 									:translations="translations"
-									@update="phoneUpdate" /> -->
+									@update="phoneUpdate" />
 
-								<!-- Согласие на использование данных -->
 								<v-checkbox
 									v-model="isConsent"
 									:label="$t('message.registrationForm.consentProcessingPersData')">
@@ -91,20 +90,20 @@
 </template>
 
 <script>
-// import Vue from 'vue'
+import Vue from 'vue'
 import Message from '../components/Message'
 
-// import VuePhoneNumberInput from 'vue-phone-number-input'
-// import 'vue-phone-number-input/dist/vue-phone-number-input.css'
+import VuePhoneNumberInput from 'vue-phone-number-input'
+import 'vue-phone-number-input/dist/vue-phone-number-input.css'
 
-// Vue.component('vue-phone-number-input', VuePhoneNumberInput)
+Vue.component('vue-phone-number-input', VuePhoneNumberInput)
 
 export default {
 	name: 'registration-form',
 	props: [ 'eventInfo', 'personInfo', 'idparams' ],
 	components: {
 		Message,
-		// VuePhoneNumberInput
+		VuePhoneNumberInput
 	},
 	created() {
 		this.lang = window.myConfig.lang
@@ -135,7 +134,8 @@ export default {
 		}
 	},
 	data: () => ({
-		defaultCountry: '',
+		defaultCountry: 'UA',
+		countriesList: ['EN','FR','UA','RU','BR'],
 		translations: {
 			countrySelectorLabel: '',
       countrySelectorError: '',
@@ -208,8 +208,7 @@ export default {
 			return window.myConfig.sitekey
 		},
 		phoneIsValid() {
-			// return this.phoneData.isValid ? this.phoneData.isValid : false
-			return true
+			return this.phoneData.isValid ? this.phoneData.isValid : false
 		}
 	}
 }
