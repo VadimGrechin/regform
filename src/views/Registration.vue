@@ -152,7 +152,10 @@ export default {
 									surname: 'Grechin',
 									email: 'vadim.grechin.1@gmail.com',
 									company: 'IT-Soft',
-									phone: '+380685553322',
+									// PL - Ок
+									phone: '+48333666222',
+									// UA - ?
+									//phone: '+380685553322',
 									position: 'Junior Developer'
 					}
 			} else {

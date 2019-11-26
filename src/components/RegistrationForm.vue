@@ -120,13 +120,12 @@ export default {
 	},
 	mounted() {
 		if (this.personInfo) {
-			this.registrationData.name = 'Vadim'
-			this.registrationData.surname = 'Grechim'
-			this.registrationData.email = 'vadim.grechin.1@gmail.com'
-			this.registrationData.company = ''
-			this.registrationData.position = 'Junior Developer'
-			// PL - Ок
-			var phoneNumber = '+48333666222'
+			this.registrationData.name = this.personInfo.name
+			this.registrationData.surname = this.personInfo.surname
+			this.registrationData.email = this.personInfo.email
+			this.registrationData.company = this.personInfo.company
+			this.registrationData.position = this.personInfo.position
+			var phoneNumber = this.personInfo.phone
 			const country = getCountryCodeByPhone(phoneNumber)
 			this.defaultCountry = country ? country.iso2 : window.myConfig.defaultCountry
 			this.phoneNumber = deleteDialCode(phoneNumber, this.defaultCountry)
