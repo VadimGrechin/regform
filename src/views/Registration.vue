@@ -153,7 +153,7 @@ export default {
 									email: 'vadim.grechin.1@gmail.com',
 									company: 'IT-Soft',
 									phone: '+380685553322',
-									position: 'Junior Developere'
+									position: 'Junior Developer'
 					}
 			} else {
 					this.goRegistration = false

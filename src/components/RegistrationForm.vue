@@ -47,15 +47,10 @@
 									:rules="[rules.required(registrationData.position, warnings.obligatoryWriteIn), rules.length100(registrationData.position, warnings.lineHasMore100symbols)]"
 									:label="$t('message.registrationForm.position') + ' *'"></v-text-field>
 
-								<!-- <v-text-field
-									v-model="registrationData.phone"
-									:rules="[rules.required(registrationData.phone, warnings.obligatoryWriteIn), rules.phone(registrationData.phone, warnings.rightPhoneNumber)]"
-									:label="$t('message.registrationForm.phone') + ' *'"></v-text-field> -->
-
 								<div v-bind:class="{phoneValid: phoneIsValid, phoneNotValid: !phoneIsValid }">{{$t('message.registrationForm.phone') + ' *'}}</div>
 
 								<VuePhoneNumberInput 
-									v-model="registrationData.phone"
+									v-model="phoneNumber"
 									size="lg"
 									required
 									color="#FF3907"
@@ -92,6 +87,7 @@
 <script>
 import Vue from 'vue'
 import Message from '../components/Message'
+import {getCountryCodeByPhone, deleteDialCode} from '../helpers/countries.js'
 
 import VuePhoneNumberInput from 'vue-phone-number-input'
 import 'vue-phone-number-input/dist/vue-phone-number-input.css'
@@ -124,15 +120,20 @@ export default {
 	},
 	mounted() {
 		if (this.personInfo) {
-			this.registrationData.name = this.personInfo.name
-			this.registrationData.surname = this.personInfo.surname
-			this.registrationData.email = this.personInfo.email
-			this.registrationData.company = this.personInfo.company
-			this.registrationData.position = this.personInfo.position
-			this.registrationData.phone = this.personInfo.phone
-		}
+			this.registrationData.name = 'Vadim'
+			this.registrationData.surname = 'Grechim'
+			this.registrationData.email = 'vadim.grechin.1@gmail.com'
+			this.registrationData.company = ''
+			this.registrationData.position = 'Junior Developer'
+			// PL - Ок
+			var phoneNumber = '+48333666222'
+			const country = getCountryCodeByPhone(phoneNumber)
+			this.defaultCountry = country ? country.iso2 : window.myConfig.defaultCountry
+			this.phoneNumber = deleteDialCode(phoneNumber, this.defaultCountry)
+		} 
 	},
 	data: () => ({
+		phoneNumber: null,
 		defaultCountry: 'UA',
 		countriesList: ['FR','UA','RU', 'GB'],
 		translations: {
@@ -180,7 +181,6 @@ export default {
 			this.phoneData = payload
 			this.registrationData.phone = this.phoneData.formattedNumber
 		},
-
 		registrate(){
 			if (this.$refs.form.validate()) {
 				this.snackbar = true
